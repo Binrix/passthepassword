@@ -3,20 +3,19 @@ let bcrypt = require('bcrypt');
 let mongoose = require('mongoose');
 let MongoStore = require('connect-mongo');
 let bodyParser = require('body-parser');
-let cookieParser = require('cookie-parser');
+let formidable = require('express-formidable');
 let session = require('express-session');
-
 
 const app = express();
 const PORT = 3000;
 const MONGO_URL = 'mongodb+srv://dbUser:dbUserPassword@m426-passthepassword.ipcu0fr.mongodb.net/test';
 
-mongoose.connect(process.env.MONGO_URL,
-	{ useNewUrlParser: true, useUnifiedTopology: true }, err => {
-		console.log('connected to ' + MONGO_URL)
-	});
+mongoose.connect(MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
+    .catch(error => {console.log(`Error:${error}`)});
 
 let userDb = require('./models/userModel');
+
+app.use(formidable());
 
 app.use(session({
     secret: bcrypt.genSaltSync(10),
@@ -35,19 +34,24 @@ app.use(session({
 }));
 
 app.post('/register', async (req,res) => {
-    let user = await userDb.findOne({username: req.body.username})    
+    if (!req.fields.username || !req.fields.masterPassword)
+    {
+        res.json({error: "field empty",errorMessage: "The field for Username and Password must not be empty!"});
+        return;
+    }
+
+    let user = await userDb.findOne({username: req.fields.username})    
     if (user !== null)
     {
         res.json({error: "username taken",errorMessage: "This Username is already taken!"});
         return;
     }
 
-    let hashedPassword = await bcrypt.hash(req.body.masterPassword,10);
+    let hashedPassword = await bcrypt.hash(req.fields.masterPassword,10);
 
     let newUser = {
-        username: req.body.username,
-        password: hash,
-        salt : salt,
+        username: req.fields.username,
+        password: hashedPassword,
         createdAt: new Date(),
         websites: [],
     };
