@@ -82,6 +82,16 @@ app.post('/login', async (req, res) => {
     }
 });
 
+app.get('/logout', async (req, res) => {
+    req.session.destroy(err => {
+        if(err) {
+            res.statusCode(400).send('Error while logout');
+        } else {
+            res.json('Logout successful');
+        }
+    });
+});
+
 app.listen(PORT, (error) => {
 if(!error) {
     console.log(`App is listening on port ${PORT}`);
