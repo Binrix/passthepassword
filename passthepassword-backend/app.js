@@ -41,6 +41,7 @@ app.post('/register', async (req,res) => {
     }
 
     let user = await userSchema.findOne({username: req.fields.username})    
+
     if (user !== null)
     {
         res.json({error: "username taken",errorMessage: "This Username is already taken!"});
