@@ -22,7 +22,6 @@ export const EntryCard: React.FC<EntryCardProps> = ({
 
 const styles = StyleSheet.create({
     card: {
-        width: 100,
-        height: 200
+        width: 200,
     }
 });

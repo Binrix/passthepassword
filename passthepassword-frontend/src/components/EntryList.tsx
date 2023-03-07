@@ -13,7 +13,7 @@ export const EntryList: React.FC<EntryListProps> = ({
     return (
         <ScrollView>
             {entries.map(entry => {
-                return <EntryCard entry={entry}></EntryCard>
+                return <EntryCard key={entry.id} entry={entry}></EntryCard>
             })}
         </ScrollView>        
     );

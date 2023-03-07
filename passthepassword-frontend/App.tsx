@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@rneui/themed';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { EntryCard } from './src/components/Entry';
 import Entry from './src/components/entry.type';
 import { EntryList } from './src/components/EntryList';
@@ -8,12 +8,14 @@ import { EntryList } from './src/components/EntryList';
 export default function App() {
   const entries: Entry[] = [
     { 
+      id: 1,
       nameOfWebsite: "Google",
       password: "TestPWD2323",
       url: "www.google.ch",
       username: "Benni"
     },
     {
+      id: 2,
       nameOfWebsite: "Yahoot",
       password: "DASJjjk23",
       url: "www.yahoot.ch",
@@ -22,10 +24,10 @@ export default function App() {
   ]
 
   return (
-    <ThemeProvider>
-      <EntryList entries={entries} ></EntryList>
+    <View>
+      <EntryList entries={entries}></EntryList>
       <StatusBar style="auto" />
-    </ThemeProvider>
+    </View>
   );
 }
 
