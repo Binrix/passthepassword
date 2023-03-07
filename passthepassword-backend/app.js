@@ -74,7 +74,7 @@ app.post('/login', async (req, res) => {
 
     let user = await userSchema.findOne({username: req.fields.username});
 
-    if(user !== null && req.fields.username === user.username && bcrypt.compare(req.fields.masterPassword, 'SHA-256')) {
+    if(user !== null && req.fields.username === user.username && bcrypt.compare(req.fields.masterPassword, user.password)) {
         req.session.userId = user.id;
         res.json(user);
     } else {
