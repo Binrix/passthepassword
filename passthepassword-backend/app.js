@@ -13,7 +13,7 @@ const MONGO_URL = 'mongodb+srv://dbUser:dbUserPassword@m426-passthepassword.ipcu
 mongoose.connect(MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
     .catch(error => {console.log(`Error:${error}`)});
 
-let userDb = require('./models/userModel');
+let userSchema = require('./models/userModel');
 
 app.use(formidable());
 
@@ -40,7 +40,8 @@ app.post('/register', async (req,res) => {
         return;
     }
 
-    let user = await userDb.findOne({username: req.fields.username})    
+    let user = await userSchema.findOne({username: req.fields.username})    
+
     if (user !== null)
     {
         res.json({error: "username taken",errorMessage: "This Username is already taken!"});
@@ -56,12 +57,30 @@ app.post('/register', async (req,res) => {
         websites: [],
     };
 
-    let dbUser = await userDb.create(newUser);
+    let dbUser = await userSchema.create(newUser);
 
     req.session.userId = dbUser.id;
 
     res.json(dbUser);
 })
+
+app.post('/login', async (req, res) => {
+
+    if (!req.fields.username || !req.fields.masterPassword)
+    {
+        res.json({error: "field empty",errorMessage: "The field for Username and Masterpassword must not be empty!"});
+        return;
+    }
+
+    let user = await userSchema.findOne({username: req.fields.username});
+
+    if(user !== null && req.fields.username === user.username && await bcrypt.compare(req.fields.masterPassword, user.password)) {
+        req.session.userId = user.id;
+        res.json(user);
+    } else {
+        res.json({error: "invalid credentials", errorMessage:"No user found with these credentials"});
+    }
+});
 
 app.listen(PORT, (error) => {
 if(!error) {
