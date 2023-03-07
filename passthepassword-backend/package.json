@@ -1,5 +1,23 @@
 {
+  "name": "passthepassword-backend",
+  "version": "1.0.0",
+  "description": "Password Manager Backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Timo Capitelli, Jan Galliker",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.17.3",
+    "mongoose": "^7.0.1",
+    "nodemon": "^2.0.21"
   }
 }
