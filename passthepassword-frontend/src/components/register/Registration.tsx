@@ -1,4 +1,5 @@
 import { Button, Input } from "@rneui/themed";
+import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from 'react-redux'
@@ -7,10 +8,15 @@ import { RootState, store } from "../../store";
 import FormWrapper from "../form-wrapper/FormWrapper";
 
 function RegistrationForm({}) {
+    const router = useRouter()
     const authState = useSelector((state: RootState) => state.auth);
     const { register, handleSubmit } = useForm({
         defaultValues: authState
     });
+
+    if (authState.isAuthenticated) {
+        router.push("")
+    }
 
     function onSubmit(v: any) {
         const newAuth: Auth = {

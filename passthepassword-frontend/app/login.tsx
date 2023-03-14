@@ -25,7 +25,7 @@ const Login: React.FC<LoginProps> = ({}) => {
         <View>
             <Stack.Screen
             options={{
-              title: "Register"
+              title: "Login"
             }}
           />
           <View style={styles.main}>

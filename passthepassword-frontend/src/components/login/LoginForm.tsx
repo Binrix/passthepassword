@@ -25,7 +25,7 @@ export const LoginForm: React.FC<EntryListProps> = ({
         event.preventDefault();
 
         var hashedPassword = sha256(password);
-        hashedPassword = hashSync(password, 10);
+        // hashedPassword = hashSync(password, "jan");
 
         onSubmit(username, hashedPassword);
     }
