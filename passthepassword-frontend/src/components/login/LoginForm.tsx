@@ -1,6 +1,7 @@
 import { hashSync } from "bcryptjs-react";
 import { sha256 } from "js-sha256";
 import React, { useState } from "react";
+import FormWrapper from "../form-wrapper/FormWrapper";
 
 type EntryListProps = {
     onSubmit: (username: string, password: string) => void;    
@@ -29,17 +30,20 @@ export const LoginForm: React.FC<EntryListProps> = ({
         onSubmit(username, hashedPassword);
     }
 
+
     return (
-        <form onSubmit={handleSubmit}> 
-            <div>
-                <label htmlFor="username">Username:</label> 
-                <input type="text" id="username" value={username} onChange={handleUsernameChange} /> 
-            </div> 
-            <div> 
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" value={password} onChange={handlePasswordChange} /> 
+        <FormWrapper>
+            <form onSubmit={handleSubmit}> 
+                <div>
+                    <label htmlFor="username">Username:</label>
+                    <input type="text" id="username" value={username} onChange={handleUsernameChange} /> 
                 </div> 
-            <button type="submit">Login</button>
-        </form>
+                <div> 
+                    <label htmlFor="password">Password:</label>
+                    <input type="password" id="password" value={password} onChange={handlePasswordChange} /> 
+                    </div> 
+                <button type="submit">Login</button>
+            </form>
+        </FormWrapper>
     );
 }
