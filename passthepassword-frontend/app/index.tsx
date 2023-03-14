@@ -2,6 +2,7 @@ import { Stack, useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "@rneui/themed";
+import LinkButton from "../src/components/link-btn/LinkButton";
 
 
 export default function Page() {
@@ -18,7 +19,7 @@ export default function Page() {
         <Text style={styles.subtitle}>
           Dies ist eine sichere APP, wir schwören, binshallah.
         </Text>
-        <Button onPress={() => router.push("register")}>Register</Button>
+        <LinkButton href="/register">Register</LinkButton>
       </View>
     </View>
   );
