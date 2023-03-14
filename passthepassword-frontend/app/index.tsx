@@ -1,7 +1,8 @@
 import { Link, Stack, useRouter } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
+import { Button } from "@rneui/themed";
+import LinkButton from "../src/components/link-btn/LinkButton";
 
 export default function Page() {
   const router = useRouter();
@@ -17,8 +18,8 @@ export default function Page() {
         <Text style={styles.subtitle}>
           Dies ist eine sichere APP, wir schwören, binshallah.
         </Text>
-        <Link href="/register">Register</Link>
-        <Link href="/login">Login</Link>
+        <LinkButton href="/register">Register</LinkButton>
+        <LinkButton href="/login">Login</LinkButton>
       </View>
     </View>
   );
