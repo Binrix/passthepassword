@@ -1,7 +1,5 @@
-import { ThemeProvider } from '@rneui/themed';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { EntryCard } from './src/components/entry/Entry';
 import Entry from './src/components/entry/entry.type';
 import { EntryList } from './src/components/entry/EntryList';
 
@@ -25,7 +23,7 @@ export default function App() {
 
   return (
     <View>
-      <EntryList entries={entries}></EntryList>
+      <EntryList entries={entries} ></EntryList>
       <StatusBar style="auto" />
     </View>
   );
