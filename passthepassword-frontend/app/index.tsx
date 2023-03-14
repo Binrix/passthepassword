@@ -3,9 +3,11 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "@rneui/themed";
 import LinkButton from "../src/components/link-btn/LinkButton";
+import { useSelector } from "react-redux";
+import { RootState } from "../src/store";
 
 export default function Page() {
-  const router = useRouter();
+  const authState = useSelector((state: RootState) => state.auth);
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -18,8 +20,13 @@ export default function Page() {
         <Text style={styles.subtitle}>
           Dies ist eine sichere APP, wir schwören, binshallah.
         </Text>
-        <LinkButton href="/register">Register</LinkButton>
-        <LinkButton href="/login">Login</LinkButton>
+        {
+          !authState.isAuthenticated ? 
+            <>
+              <LinkButton href="/register">Register</LinkButton>
+              <LinkButton href="/login">Login</LinkButton>
+            </> : null
+        }
       </View>
     </View>
   );

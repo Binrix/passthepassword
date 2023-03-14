@@ -63,7 +63,9 @@ app.post('/register', async (req,res) => {
 
     req.session.userId = dbUser.id;
 
-    res.json(dbUser);
+    res.json({
+        username: dbUser.username
+    });
 })
 
 app.post('/login', async (req, res) => {
@@ -78,7 +80,9 @@ app.post('/login', async (req, res) => {
 
     if(user !== null && req.fields.username === user.username && await bcrypt.compare(req.fields.masterPassword, user.password)) {
         req.session.userId = user.id;
-        res.json(user);
+        res.json({
+            username: user.username
+        });
     } else {
         res.json({error: "invalid credentials", errorMessage:"No user found with these credentials"});
     }

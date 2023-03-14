@@ -1,4 +1,6 @@
 import { createModel } from '@rematch/core'
+import { hashSync } from 'bcryptjs-react';
+import { sha256 } from 'js-sha256';
 import type { RootModel } from './root.model'
 
 export default interface Auth {
@@ -8,6 +10,30 @@ export default interface Auth {
 }
 
 const apiBaseURL = 'http://localhost:3000'
+
+async function doAuth(dispatch: any, endpoint: string, payload: any) {
+    const formData = new FormData();
+
+    var hashedPassword = sha256(payload.password);
+    // hashedPassword = hashSync(payload.password, "jan");
+    formData.append("username", payload.username)
+    formData.append("masterPassword", hashedPassword)
+    // @ts-ignore
+    const urlParams = new URLSearchParams(formData)
+    const res = await fetch(`${apiBaseURL}/${endpoint}`, {
+        method: 'POST',
+        body: urlParams
+    })
+    const json = await res.json();
+    console.log(json)
+
+
+    dispatch.auth.setAuth({
+        username: json.username || '',
+        password: '',
+        isAuthenticated: json.username != null,
+    })
+}
 
 export const auth = createModel<RootModel>()({
     state: {
@@ -25,26 +51,11 @@ export const auth = createModel<RootModel>()({
         }
     },
     effects: (dispatch) => ({
-        // TODO: add hashing of pass
         async doRegistration(payload: Auth) {
-            console.log(payload)
-            const formData = new FormData();
-            formData.append("username", payload.username)
-            formData.append("masterPassword", payload.password)
-            // @ts-ignore
-            const urlParams = new URLSearchParams(formData)
-            const res = await fetch(`${apiBaseURL}/register`, {
-                method: 'POST',
-                body: urlParams
-            })
-            const json = await res.json();
-            console.log(json)
-
-            dispatch.auth.setAuth({
-                username: json.username,
-                password: '',
-                isAuthenticated: true,
-            })
+            await doAuth(dispatch, 'register', payload)
+        },
+        async doLogin(payload: Auth) {
+            await doAuth(dispatch, 'login', payload)
         }
     })
 })
