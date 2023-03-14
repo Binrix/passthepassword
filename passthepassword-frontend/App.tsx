@@ -1,10 +1,31 @@
+import { ThemeProvider } from '@rneui/themed';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { EntryCard } from './src/components/entry/Entry';
+import Entry from './src/components/entry/entry.type';
+import { EntryList } from './src/components/entry/EntryList';
 
 export default function App() {
+  const entries: Entry[] = [
+    { 
+      id: 1,
+      nameOfWebsite: "Google",
+      password: "TestPWD2323",
+      url: "www.google.ch",
+      username: "Benni"
+    },
+    {
+      id: 2,
+      nameOfWebsite: "Yahoot",
+      password: "DASJjjk23",
+      url: "www.yahoot.ch",
+      username: "benniLol"
+    }
+  ]
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View>
+      <EntryList entries={entries}></EntryList>
       <StatusBar style="auto" />
     </View>
   );
