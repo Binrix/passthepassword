@@ -1,9 +1,9 @@
 import { ThemeProvider } from '@rneui/themed';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { EntryCard } from './src/components/Entry';
-import Entry from './src/components/entry.type';
-import { EntryList } from './src/components/EntryList';
+import { EntryCard } from './src/components/entry/Entry';
+import Entry from './src/components/entry/entry.type';
+import { EntryList } from './src/components/entry/EntryList';
 
 export default function App() {
   const entries: Entry[] = [
