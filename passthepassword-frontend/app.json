@@ -1,5 +1,10 @@
 {
   "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
     "name": "passthepassword-frontend",
     "slug": "passthepassword-frontend",
     "version": "1.0.0",
@@ -22,9 +27,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
