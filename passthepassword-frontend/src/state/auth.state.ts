@@ -27,10 +27,11 @@ async function doAuth(dispatch: any, endpoint: string, payload: any) {
     const json = await res.json();
     console.log(json)
 
+
     dispatch.auth.setAuth({
-        username: json.username,
+        username: json.username || '',
         password: '',
-        isAuthenticated: true,
+        isAuthenticated: json.username != null,
     })
 }
 
