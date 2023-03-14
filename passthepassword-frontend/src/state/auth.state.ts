@@ -56,6 +56,18 @@ export const auth = createModel<RootModel>()({
         },
         async doLogin(payload: Auth) {
             await doAuth(dispatch, 'login', payload)
+        },
+        async doLogout() {
+            const res = await fetch(`${apiBaseURL}/logout`)
+            
+            if (!res.ok) alert('Logout failed')
+            dispatch.auth.setAuth({
+                username: "",
+                password: "",
+                isAuthenticated: false,
+            })
+
+            window.location.pathname = ""
         }
     })
 })
