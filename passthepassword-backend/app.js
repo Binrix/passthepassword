@@ -5,6 +5,7 @@ let MongoStore = require('connect-mongo');
 let bodyParser = require('body-parser');
 let formidable = require('express-formidable');
 let session = require('express-session');
+let cors = require('cors');
 
 const app = express();
 const PORT = 3000;
@@ -16,6 +17,7 @@ mongoose.connect(MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
 let userSchema = require('./models/userModel');
 
 app.use(formidable());
+app.use(cors())
 
 app.use(session({
     secret: bcrypt.genSaltSync(10),
