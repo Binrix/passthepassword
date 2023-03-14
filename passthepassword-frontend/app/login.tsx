@@ -6,34 +6,21 @@ import { LoginForm } from "../src/components/login/LoginForm";
 
 type LoginProps = {}
 
-const Login: React.FC<LoginProps> = ({}) => {
-    const loginUser = (username: string, password: string) => {
-        console.log(password.length);
-
-        var requestOptions = {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, masterPassword: password })
-        }
-
-        fetch('http://localhost:3000/login', requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data));
-    }
-
-    return (
-        <View>
-            <Stack.Screen
-            options={{
-              title: "Login"
-            }}
-          />
-          <View style={styles.main}>
-            <LoginForm onSubmit={loginUser} ></LoginForm>
-          </View>
-        </View>
-    );
+function Login() {
+  return (
+    <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: "Login"
+        }}
+      />
+      <View style={styles.main}>
+        <LoginForm />
+      </View>
+    </View>
+  );
 }
+
 
 const styles = StyleSheet.create({
     container: {
